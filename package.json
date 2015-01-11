@@ -1,0 +1,21 @@
+{
+  "name": "bassrush",
+  "version": "1.0.0",
+  "description": "Use your bass cannon to destroy zombie hipsters who only listens to underground deephouse, get power-ups,  beat high scores all while running to dubstep.",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:fobabett/bassrush.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp-sass": "^1.2.4"
+  }
+}
