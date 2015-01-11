@@ -55,10 +55,13 @@
     player.y = 205;
     var ground = 200;
     player.gravity = 10;
-
-    if(player.y < ground) {
-      player.y += player.gravity;
+    if(game.input.up) {
+      player.y = player.y - 100;
+      console.log('jump test');
     }
+    // if(player.y < ground) {
+    //   player.y += player.gravity;
+    // }
     console.log(player.y);
   }
 
