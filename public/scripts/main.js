@@ -33,9 +33,11 @@
   function gameInit() {
     var bg = new Sprite(STAGE_WIDTH, STAGE_HEIGHT);
     player = new Sprite(400,346);
-    var enemy = new Sprite(242,242);
+    enemy = new Sprite(242,242);
     player.scale(.2); //use smaller decimals for smaller sizing
-    console.log(player.y);
+    enemy.scale(.3);
+    enemy.y = 260;
+    enemy.x = 400;
 
 
     bg.image = game.assets[GAME_ASSET.IMAGES.bg];
@@ -69,7 +71,15 @@
     if(player.y < ground) {
       player.y += player.gravity;
     }
-    console.log(player.y);
+    
+    // randomize enemy movements
+     enemy.tl.moveBy(200, 0, 150)   // move right 
+            .scaleTo(-.3, .3, 10)      // turn left
+            .moveBy(-288, 0, 150)     // move left
+            .scaleTo(.3, .3, 10)       // turn right
+            .loop();                 // loop it
+    
+
   }
 
 
