@@ -32,11 +32,11 @@
   }
   function gameInit() {
     var bg = new Sprite(STAGE_WIDTH, STAGE_HEIGHT);
-    player = new Sprite(400,346);
-    enemy = new Sprite(242,242);
-    player.scale(.2); //use smaller decimals for smaller sizing
-    enemy.scale(.3);
-    enemy.y = 260;
+    player = new Sprite(115,100);
+    enemy = new Sprite(100,100);
+    // player.scale(.2); //use smaller decimals for smaller sizing
+    // enemy.scale(.3);
+    enemy.y = 320;
     enemy.x = 400;
 
 
@@ -59,7 +59,7 @@
     if(player === undefined) {
       return;
     }
-    player.y = 205;
+    player.y = 320;
     var ground = 200;
     player.gravity = 5;
     // sprite jumps when up arrow is pushed
@@ -73,12 +73,19 @@
     }
     
     // randomize enemy movements
-     enemy.tl.moveBy(200, 0, 150)   // move right 
-            .scaleTo(-.3, .3, 10)      // turn left
-            .moveBy(-288, 0, 150)     // move left
-            .scaleTo(.3, .3, 10)       // turn right
+     enemy.tl.moveBy(-250, 0, 90)   // move right 
+            .scaleTo(-1, 1, 10)      // turn left
+            .moveBy(200, 0, 90)     // move left
+            .scaleTo(1, 1, 10)       // turn right
             .loop();                 // loop it
-    
+
+    // sprite intersect test
+    if(player.intersect(enemy)) {
+      game.rootScene.removeChild(player);
+      console.log('dedz');
+    } else {
+      console.log('not dedz');
+    }
 
   }
 
