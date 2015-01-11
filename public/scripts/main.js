@@ -7,7 +7,7 @@
   var GAME_ASSET = {
     IMAGES: {
       blah: '/assets/images/mario.png',
-      bg: '/assets/images/bg32_32.png',
+      // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png'
     }
   };
@@ -31,7 +31,7 @@
     
   }
   function gameInit() {
-    var bg = new Sprite(STAGE_WIDTH, STAGE_HEIGHT);
+    // var bg = new Sprite(STAGE_WIDTH, STAGE_HEIGHT);
     player = new Sprite(115,100);
     enemy = new Sprite(100,100);
     // player.scale(.2); //use smaller decimals for smaller sizing
@@ -40,17 +40,17 @@
     enemy.x = 400;
 
 
-    bg.image = game.assets[GAME_ASSET.IMAGES.bg];
+    // bg.image = game.assets[GAME_ASSET.IMAGES.bg];
     player.image = game.assets[GAME_ASSET.IMAGES.blah];
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
-    game.rootScene.addChild(bg);
+    // game.rootScene.addChild(bg);
     game.rootScene.addChild(player);
     game.rootScene.addChild(enemy);
    
     // console.log(player,bg);
   }
   function preloadAssets() {
-    game.preload(GAME_ASSET.IMAGES.bg);
+    // game.preload(GAME_ASSET.IMAGES.bg);
     game.preload(GAME_ASSET.IMAGES.blah);
     game.preload(GAME_ASSET.IMAGES.enemy);
   }
@@ -64,7 +64,7 @@
     player.gravity = 5;
     // sprite jumps when up arrow is pushed
     if(game.input.up) {
-      player.y = player.y - 100;
+      player.y = player.y - 200;
       console.log('jump test');
     }
     // sprite falls to ground
@@ -82,11 +82,18 @@
     // sprite intersect test
     if(player.intersect(enemy)) {
       game.rootScene.removeChild(player);
+      gameOver(); 
       console.log('dedz');
     } else {
       console.log('not dedz');
     }
-
+  }
+  function gameOver() {
+    // game.rootScene.addEventListener(enchant.Event.TOUCH_END, function() {
+    //   window.location.reload();
+    // });
+    game.stop();
+    alert('You droped the bass m8. GAMEOVER');
   }
 
 
