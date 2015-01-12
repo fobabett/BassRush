@@ -55,14 +55,11 @@
     game.rootScene.addChild(enemy);
 
     if(backdrop.x < STAGE_WIDTH) {
-      backdrop.tl.moveBy(-STAGE_WIDTH, 0, 200);
+      backdrop.tl.moveBy(-STAGE_WIDTH, 0, 300);
     }
-    backdrop.reset = function() {
-      backdrop.x=0;
-      backdrop.speed = 0.4;
+    if(ground.x < STAGE_WIDTH) {
+      ground.tl.moveBy(-STAGE_WIDTH, 0, 100);
     }
-
-    console.log(ground.x);
 
     ground.y += STAGE_HEIGHT -40;
     
