@@ -1,1 +1,13 @@
 TMP NOTES
+
+player: health, direction, speed, attack
+
+coins: generated at random times and random positions in groups.
+
+powerups: same as coins. 'LFO': changes, bass_cannon, 'x2': speeds player up for 30secs, 'EQ': doubble points, 'Compressor': indestructable for 30secs.
+
+enemies: same as above.
+
+enemy: speed
+
+bass_cannon: distance, sfx, speed. params change on powerups.
