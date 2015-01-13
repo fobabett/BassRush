@@ -6,7 +6,7 @@
   // var GROUND_Y = 450;
   var GAME_ASSET = {
     IMAGES: {
-      bass_master: '/assets/images/bass_master.png',
+      bass_god: '/assets/images/bass_god.png',
       // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png',
       ground: '/assets/images/ground.jpg',
@@ -58,7 +58,7 @@
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
     ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
-    player.image = game.assets[GAME_ASSET.IMAGES.bass_master];
+    player.image = game.assets[GAME_ASSET.IMAGES.bass_god];
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
     // game.rootScene.addChild(backdrop);
     // game.rootScene.addChild(ground);
@@ -100,7 +100,7 @@
     game.preload(GAME_ASSET.IMAGES.ground);
     game.preload(GAME_ASSET.IMAGES.ground2);
     game.preload(GAME_ASSET.IMAGES.ground3);
-    game.preload(GAME_ASSET.IMAGES.bass_master);
+    game.preload(GAME_ASSET.IMAGES.bass_god);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
