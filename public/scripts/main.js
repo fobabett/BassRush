@@ -7,6 +7,7 @@
   var GAME_ASSET = {
     IMAGES: {
       bass_god: '/assets/images/bass_god.png',
+      bass_cannon: '/assets/images/cannon_fire.png',
       // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png',
       ground: '/assets/images/ground.jpg',
@@ -43,6 +44,7 @@
     var ground2 = new Sprite(243,40);
     var ground3 = new Sprite(243,40);
     player = new Sprite(150,101);
+    bass_cannon = new Sprite(34,24);
     enemy = new Sprite(100,100);
     // player.scale(.2); //use smaller decimals for smaller sizing
     // enemy.scale(.3);
@@ -59,6 +61,7 @@
     ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
     player.image = game.assets[GAME_ASSET.IMAGES.bass_god];
+    bass_cannon.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
     // game.rootScene.addChild(backdrop);
     // game.rootScene.addChild(ground);
@@ -101,6 +104,7 @@
     game.preload(GAME_ASSET.IMAGES.ground2);
     game.preload(GAME_ASSET.IMAGES.ground3);
     game.preload(GAME_ASSET.IMAGES.bass_god);
+    game.preload(GAME_ASSET.IMAGES.bass_cannon);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
@@ -134,6 +138,14 @@
     // sprite falls to ground
     if(player.y < ground) {
       player.y += player.gravity;
+    }
+    // if player presses key, fire bass cannon
+    if(game.input.right) {
+      game.rootScene.addChild(bass_cannon);
+      bass_cannon.y = player.y+30;
+      bass_cannon.x = player.x +150;
+      bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 100);
+      console.log('pew');
     }
     
     // randomize enemy movements
