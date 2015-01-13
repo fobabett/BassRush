@@ -155,7 +155,8 @@
             // .scaleTo(1, 1, 10)       // turn right
             // .loop();                 // loop it
 
-    // sprite intersect test
+    // sprite collision
+    // enemy hits player
     if(player.intersect(enemy)) {
       game.rootScene.removeChild(player);
       gameOver(); 
@@ -163,6 +164,12 @@
 
     } else {
       console.log('not dedz');
+    }
+    // bass_cannon hits enemy
+    if(enemy.intersect(bass_cannon)) {
+      game.rootScene.removeChild(enemy);
+      // game.rootScene.removeChild(bass_cannon); removes it completely. need to fix
+      console.log('pwn');
     }
   }
   function gameOver() {
