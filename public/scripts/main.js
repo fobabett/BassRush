@@ -6,7 +6,7 @@
   // var GROUND_Y = 450;
   var GAME_ASSET = {
     IMAGES: {
-      blah: '/assets/images/mario.png',
+      bass_master: '/assets/images/bass_master.png',
       // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png',
       ground: '/assets/images/ground.jpg',
@@ -42,7 +42,7 @@
     var ground = new Sprite(243,40);
     var ground2 = new Sprite(243,40);
     var ground3 = new Sprite(243,40);
-    player = new Sprite(115,100);
+    player = new Sprite(150,101);
     enemy = new Sprite(100,100);
     // player.scale(.2); //use smaller decimals for smaller sizing
     // enemy.scale(.3);
@@ -58,10 +58,10 @@
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
     ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
-    player.image = game.assets[GAME_ASSET.IMAGES.blah];
+    player.image = game.assets[GAME_ASSET.IMAGES.bass_master];
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
-    game.rootScene.addChild(backdrop);
-    game.rootScene.addChild(ground);
+    // game.rootScene.addChild(backdrop);
+    // game.rootScene.addChild(ground);
     // game.rootScene.addChild(ground2);
     // game.rootScene.addChild(ground3);
     game.rootScene.addChild(player);
@@ -72,18 +72,20 @@
     //     game.rootScene.addChild(enemy);
     //   }
     // }
+    // game.addEventListener('enterframe', function() {
+    //   ground.x = 0;
+    // });
 
-    if(backdrop.x < STAGE_WIDTH) {
-      backdrop.tl.moveBy(-STAGE_WIDTH, 0, 300)
-            // .loop();                 // loop it
-    }
-    if(ground.x >=0) {
-      ground.tl.moveBy(-STAGE_WIDTH, 0, 100);
-      if(ground.x <0){
-        game.rootScene.addChild(ground2);
-      }
-    }
- 
+    // if(backdrop.x < STAGE_WIDTH) {
+    //   backdrop.tl.moveBy(-STAGE_WIDTH, 0, 300)
+    //         // .loop();                 // loop it
+    // }
+    // if(ground.x =0) {
+    //   ground.tl.moveBy(-STAGE_WIDTH, 0, 100);
+    //   if(ground.x <0){
+    //     game.rootScene.addChild(ground2);
+    //   }
+    // }
    
 
     ground.y += STAGE_HEIGHT -40;
@@ -98,16 +100,16 @@
     game.preload(GAME_ASSET.IMAGES.ground);
     game.preload(GAME_ASSET.IMAGES.ground2);
     game.preload(GAME_ASSET.IMAGES.ground3);
-    game.preload(GAME_ASSET.IMAGES.blah);
+    game.preload(GAME_ASSET.IMAGES.bass_master);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
 
-  function Background() {
-    this.speed - 1;
+  // function Background() {
+  //   this.speed - 1;
 
-    backdrop.x += this.speed;
-  }
+  //   backdrop.x += this.speed;
+  // }
 
   function gameLoop(event) {
 
