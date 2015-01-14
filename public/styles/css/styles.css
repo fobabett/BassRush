@@ -1,23 +1,12 @@
-html {
-  background-color: black; 
-}
-#main_container {
-  /*background-color: black;*/
-  width: 600px;
-  height: 360px;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
+
 canvas {
   background-image: url('/assets/images/ground.jpg');
   background-position: 100% 0;
   background-repeat: repeat-x;
-  width: 600px;
-  height: 360px;
   top: 0;
   left: 0;
-  border: 1px solid #FFFFFF;
+  background-color: black;
+  border: 1px solid red;
   z-index: 1;
   position: absolute;
    -webkit-box-sizing: border-box;

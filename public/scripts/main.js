@@ -8,6 +8,7 @@
     IMAGES: {
       bass_god: '/assets/images/bass_god.png',
       bass_cannon: '/assets/images/cannon_fire.png',
+      bass_coin: '/assets/images/bass_coin.png',
       // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png',
       ground: '/assets/images/ground.jpg',
@@ -19,6 +20,7 @@
   };
   var game;
   var player;
+  var intervals = [];
 
 
 
@@ -45,16 +47,19 @@
     var ground3 = new Sprite(243,40);
     player = new Sprite(150,101);
     bass_cannon = new Sprite(34,24);
+    bass_coin = new Sprite(34,34);
     enemy = new Sprite(100,100);
     // player.scale(.2); //use smaller decimals for smaller sizing
     // enemy.scale(.3);
     enemy.y = 340;
-    enemy.x = 400;
+    enemy.x = 600;
     ground.x = 0;
     ground2.y += STAGE_HEIGHT -40;
     ground2.x = 700;
     ground3.y += STAGE_HEIGHT -40;
     ground3.x = 800;
+    bass_coin.y = player.y + 200;
+    bass_coin.x = 600;
 
     backdrop.image = game.assets[GAME_ASSET.IMAGES.bd];
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
@@ -62,13 +67,15 @@
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
     player.image = game.assets[GAME_ASSET.IMAGES.bass_god];
     bass_cannon.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
+    bass_coin.image = game.assets[GAME_ASSET.IMAGES.bass_coin];
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
     // game.rootScene.addChild(backdrop);
     // game.rootScene.addChild(ground);
     // game.rootScene.addChild(ground2);
     // game.rootScene.addChild(ground3);
     game.rootScene.addChild(player);
-    game.rootScene.addChild(enemy);
+    // game.rootScene.addChild(enemy);
+    spawnEnemy();
 
     // for(var i=1; i<900; i++) {
     //   if(i === 900) {
@@ -105,6 +112,7 @@
     game.preload(GAME_ASSET.IMAGES.ground3);
     game.preload(GAME_ASSET.IMAGES.bass_god);
     game.preload(GAME_ASSET.IMAGES.bass_cannon);
+    game.preload(GAME_ASSET.IMAGES.bass_coin);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
@@ -139,6 +147,7 @@
     if(player.y < ground) {
       player.y += player.gravity;
     }
+
     // if player presses key, fire bass cannon
     if(game.input.right) {
       game.rootScene.addChild(bass_cannon);
@@ -147,6 +156,17 @@
       bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 100);
       console.log('pew');
     }
+    // spawnEnemy();
+    spawnCoins();
+
+
+
+    bass_coin.tl.moveBy(0, 0, 10)   // move right 
+          .scaleTo(-1, 1, 10)      // turn left
+          .moveBy(0, 0, 10)     // move left
+          .scaleTo(1, 1, 10)       // turn right
+          .loop();                 // loop it
+    // bass_coin.tl.moveBy(-STAGE_WIDTH, 0, 100)   // move right       
     
     // randomize enemy movements
      enemy.tl.moveBy(-STAGE_WIDTH, 0, 100);   // move right 
@@ -160,18 +180,25 @@
     if(player.intersect(enemy)) {
       game.rootScene.removeChild(player);
       gameOver(); 
-      console.log('dedz');
+      // console.log('dedz');
 
     } else {
-      console.log('not dedz');
+      // console.log('not dedz');
     }
     // bass_cannon hits enemy
     if(enemy.intersect(bass_cannon)) {
       game.rootScene.removeChild(enemy);
       // game.rootScene.removeChild(bass_cannon); removes it completely. need to fix
-      console.log('pwn');
+      // console.log('pwn');
     }
   }
+  function spawnEnemy() {
+    game.rootScene.addChild(enemy);
+  }
+  function spawnCoins() {
+    game.rootScene.addChild(bass_coin);
+  }
+  // function every(ms,func) {
   function gameOver() {
     // game.rootScene.addEventListener(enchant.Event.TOUCH_END, function() {
     //   window.location.reload();
