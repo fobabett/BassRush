@@ -49,7 +49,7 @@
     var ground3 = new Sprite(243,40);
     // player = new Sprite(150,101);
     // bass_cannon = new Sprite(34,24);
-    bass_coin = new Sprite(34,34);
+    // bass_coin = new Sprite(34,34);
     // scoreLabel = new ScoreLabel(8,8);
     // game.rootScene.addChild(scoreLabel);
     // PLAYER CLASS
@@ -124,14 +124,48 @@
           if(this.x > STAGE_WIDTH){
             this.remove();
           }
+
         });
       }
     });
+
+    // COIN CLASS
+    var Coins = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,34,34);
+        this.image = game.assets[GAME_ASSET.IMAGES.bass_coin];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        this.direction = 0;
+        this.speed = 10;
+        this.addEventListener('enterframe',function(){
+          this.x -= this.speed * Math.cos(this.direction);
+          this.x += this.speed * Math.sin(this.direction);
+
+          if(this.x < 0) {
+            this.remove();
+          }
+
+          if(this.intersect(player)){
+            this.remove();
+          }
+        });
+
+        game.rootScene.addChild(this);
+      }
+    });
+
     game.rootScene.addEventListener('enterframe', function(){
+      // generates enemies
       if(Math.random()*1000 < 10) {
         var enemy = new Enemy(STAGE_WIDTH, 340);
         enemy.key = game.frame;
         enemies[game.frame] = enemy;
+      }
+      // generates coins
+      if(Math.random()*100 < 1) {
+        var bass_coin = new Coins(STAGE_WIDTH, 50);
       }
 
       if(game.input.right) {
@@ -172,14 +206,12 @@
     ground2.x = 700;
     ground3.y += STAGE_HEIGHT -40;
     ground3.x = 800;
-    bass_coin.y = player.y + 200;
-    bass_coin.x = 600;
+
 
     backdrop.image = game.assets[GAME_ASSET.IMAGES.bd];
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
     ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
-    bass_coin.image = game.assets[GAME_ASSET.IMAGES.bass_coin];
    
     game.rootScene.addChild(player);
 
@@ -208,29 +240,8 @@
 
   function gameLoop(event) {
 
-    if(player === undefined) {
-      return;
-    }
-
-    player.y = 340;
-    var ground = 200;
-    player.gravity = 1;
-
-    // sprite jumps when up arrow is pushed
-    if(game.input.up) {
-      player.y = player.y - 200;
-      console.log('jump test');
-    }
-
-    // sprite falls to ground
-    if(player.y < ground) {
-      player.y += player.gravity;
-    }
   }
 
-  function spawnCoins() {
-    game.rootScene.addChild(bass_coin);
-  }
 
   function gameOver() {
  
