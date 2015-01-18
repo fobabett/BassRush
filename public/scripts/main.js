@@ -99,13 +99,10 @@
       }
     });
     game.rootScene.addEventListener('enterframe', function(){
-      if(Math.random()*100 < 10) {
-        // var y = Math.random()*320;
+      if(Math.random()*1000 < 10) {
         var enemy = new Enemy(STAGE_WIDTH, 340);
         enemy.key = game.frame;
         enemies[game.frame] = enemy;
-        // console.log(enemies);
-        // enemy.tl.moveBy(-800, 0, 100);   // move right 
       }
 
       if(game.input.right) {
