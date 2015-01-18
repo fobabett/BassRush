@@ -22,6 +22,7 @@
   var intervals = [];
   var enemies = [];
   var enemy;
+  var coins =[];
 
 
 
@@ -164,9 +165,17 @@
         enemies[game.frame] = enemy;
       }
       // generates coins
-      if(Math.random()*100 < 1) {
-        var bass_coin = new Coins(STAGE_WIDTH, 50);
-      }
+          if(Math.random()*1000 < 10) {
+            var y = Math.random()*100;
+            var bass_coin = new Coins(STAGE_WIDTH, y);
+
+            bass_coin.tl.moveBy(0, 0, 5)   // move right
+            .scaleTo(-1, 1, 10)      // turn left
+            .moveBy(0, 0, 5)     // move left
+            .scaleTo(1, 1, 10)       // turn right
+            .loop(); 
+      };
+      
 
       if(game.input.right) {
         var bass_cannon = new BassCannon(300,300);
@@ -186,7 +195,7 @@
       }
 
       var ground = 340;
-      player.gravity = 10;
+      player.gravity = 5;
 
       // sprite jumps when up arrow is pushed
       if(game.input.up) {
