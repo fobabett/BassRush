@@ -46,8 +46,66 @@
     var ground2 = new Sprite(243,40);
     var ground3 = new Sprite(243,40);
     player = new Sprite(150,101);
-    bass_cannon = new Sprite(34,24);
+    // bass_cannon = new Sprite(34,24);
     bass_coin = new Sprite(34,34);
+
+    // ENEMY CLASS
+    var Enemy = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this, 100, 100);
+        this.image = game.assets[GAME_ASSET.IMAGES.enemy];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        game.rootScene.addChild(this);
+      },
+      remove: function() {
+        game.rootScene.removeChild(this);
+        delete enemies[this.key];
+        delete this;
+      }
+    });
+    // BASS_CANNON CLASS
+    var BassCannon = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,34,34);
+        this.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        game.rootScene.addChild(this);
+
+        this.addEventListener('enterframe',function(){
+          for(var i in enemies){
+            if(enemies[i].intersect(this)){
+              this.remove();
+              enemies[i].remove();
+            }
+          }
+        });
+      }
+    });
+    game.rootScene.addEventListener('enterframe', function(){
+      if(Math.random()*100 < 10) {
+        // var y = Math.random()*320;
+        var enemy = new Enemy(STAGE_WIDTH, 340);
+        enemy.key = game.frame;
+        enemies[game.frame] = enemy;
+        // console.log(enemies);
+        enemy.tl.moveBy(-800, 0, 100);   // move right 
+      }
+
+      if(game.input.right) {
+        var bass_cannon = new BassCannon(300,300);
+        bass_cannon.y = player.y+30;
+        bass_cannon.x = player.x +150;
+        bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
+      // game.assets['/assets/sfx/bass_cannon_aduio.wav'].play();
+      console.log('wub');
+    }
+
+    });
+
     
     ground.x = 0;
     ground2.y += STAGE_HEIGHT -40;
@@ -62,13 +120,13 @@
     ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
     ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
     player.image = game.assets[GAME_ASSET.IMAGES.bass_god];
-    bass_cannon.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
+    // bass_cannon.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
     bass_coin.image = game.assets[GAME_ASSET.IMAGES.bass_coin];
    
     game.rootScene.addChild(player);
     // spawnEnemy();
-    spawnCoins();
-    
+    // spawnCoins();
+
 
 
 
@@ -112,22 +170,19 @@
     if(player.y < ground) {
       player.y += player.gravity;
     }
+  
 
-    if(! enemy){
-      spawnEnemy();
-      console.log('blah');
-    }
 
 
     // if player presses key, fire bass cannon
-    if(game.input.right) {
-      game.rootScene.addChild(bass_cannon);
-      bass_cannon.y = player.y+30;
-      bass_cannon.x = player.x +150;
-      bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
-      // game.assets['/assets/sfx/bass_cannon_aduio.wav'].play();
-      console.log('wub');
-    }
+    // if(game.input.right) {
+    //   game.rootScene.addChild(bass_cannon);
+    //   bass_cannon.y = player.y+30;
+    //   bass_cannon.x = player.x +150;
+    //   bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
+    //   // game.assets['/assets/sfx/bass_cannon_aduio.wav'].play();
+    //   console.log('wub');
+    // }
    
 
 
@@ -140,21 +195,31 @@
     // bass_coin.tl.moveBy(-STAGE_WIDTH, 0, 100)   // move right       
     
     ////////// sprite collision//////////////
-    // enemy hits player
-    if(player.intersect(enemy)) {
-      game.rootScene.removeChild(player);
-      gameOver(); 
-      // console.log('dedz');
-    } 
     // bass_cannon hits enemy
-    if(enemy.intersect(bass_cannon)) {
-      removeEnemy(enemy);
-    }
+    // console.log('enemies.length' + enemies.length);
+    // for(var i=0; i<enemies.length;i++) {
+    //   console.log('enemies i ' + enemies[i]);
+    //   if(enemies[i].intersect(bass_cannon)){
+    //     enemies[i].remove();
+    //   }
+    //   if(player.intersect(enemies[i])) {
+    //     game.rootScene.removeChild(player);
+    //     gameOver(); 
+    //     // console.log('dedz');
+    //   } 
+    // }
+    // enemy hits player
+    // if(player.intersect(enemy)) {
+    //   game.rootScene.removeChild(player);
+    //   gameOver(); 
+    //   // console.log('dedz');
+    // } 
+    
     // if player intersects coin
-    if(player.intersect(bass_coin)) {
-      game.rootScene.removeChild(bass_coin);
-      console.log('ka-ching!');
-    }
+    // if(player.intersect(bass_coin)) {
+    //   game.rootScene.removeChild(bass_coin);
+    //   console.log('ka-ching!');
+    // }
   }
 
 
@@ -172,7 +237,7 @@
     game.rootScene.addChild(enemy);
     enemy.image = game.assets[GAME_ASSET.IMAGES.enemy];
 
-    enemy.x = 600;
+    // enemy.x = 600;
     enemy.tl.moveBy(-1000, 0, 100);   // moves enemy to the left
 
     console.log('meow');
