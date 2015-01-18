@@ -105,7 +105,10 @@
         this.x = x;
         this.y = y;
         this.frame = 3;
+        this.direction = 0;
+        this.speed = 10;
 
+        this.x += this.speed * Math.cos(this.direction);
 
 
         game.rootScene.addChild(this);
@@ -116,6 +119,10 @@
               this.remove();
               enemies[i].remove();
             }
+          }
+
+          if(this.x > STAGE_WIDTH){
+            this.remove();
           }
         });
       }
