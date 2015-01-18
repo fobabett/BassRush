@@ -58,6 +58,18 @@
         this.y = y;
         this.frame = 3;
         game.rootScene.addChild(this);
+
+        this.direction = 0;
+        this.speed = 10;
+
+        this.addEventListener('enterframe',function(){
+          this.x -= this.speed * Math.cos(this.direction);
+          this.x += this.speed * Math.sin(this.direction);
+
+          if(this.x < 0) {
+            this.remove();
+          }
+        });
       },
       remove: function() {
         game.rootScene.removeChild(this);
@@ -68,11 +80,12 @@
     // BASS_CANNON CLASS
     var BassCannon = enchant.Class.create(enchant.Sprite, {
       initialize: function(x,y) {
-        enchant.Sprite.call(this,34,34);
+        enchant.Sprite.call(this,34,24);
         this.image = game.assets[GAME_ASSET.IMAGES.bass_cannon];
         this.x = x;
         this.y = y;
         this.frame = 3;
+
         game.rootScene.addChild(this);
 
         this.addEventListener('enterframe',function(){
@@ -92,7 +105,7 @@
         enemy.key = game.frame;
         enemies[game.frame] = enemy;
         // console.log(enemies);
-        enemy.tl.moveBy(-800, 0, 100);   // move right 
+        // enemy.tl.moveBy(-800, 0, 100);   // move right 
       }
 
       if(game.input.right) {
