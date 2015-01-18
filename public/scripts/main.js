@@ -61,9 +61,13 @@
         this.y = y;
         this.frame = 0;
         game.rootScene.addChild(this);
+
+        this.addEventListener('enterframe',function(){
+
+        });
       }
     });
-    var player = new Player(0,340);
+    var player = new Player(50,340);
 
     // ENEMY CLASS
     var Enemy = enchant.Class.create(enchant.Sprite, {
@@ -138,6 +142,20 @@
           game.rootScene.removeChild(player);
           gameOver();
         }
+      }
+
+      var ground = 340;
+      player.gravity = 10;
+
+      // sprite jumps when up arrow is pushed
+      if(game.input.up) {
+        player.y -= 60;
+        console.log('jump test');
+      }
+  
+      // sprite falls to ground
+      if(player.y < ground) {
+        player.y += player.gravity;
       }
     });
 
