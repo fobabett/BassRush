@@ -56,8 +56,18 @@
     coinLabel.font = "28px monospace";
     game.rootScene.addChild(coinLabel);
 
+    distanceLabel = new Label("Distance: 0");
+    distanceLabel.y = 30;
+    distanceLabel.color = "white";
+    distanceLabel.font = "28px monospace";
+    game.rootScene.addChild(distanceLabel);
+
     coinLabel.addEventListener('enterframe', function(){
       this.text = "Coins: "+game.coins;
+    });
+
+    distanceLabel.addEventListener('enterframe', function(){
+      this.text = "Distance: "+game.frame + " m";
     });
 
     game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
