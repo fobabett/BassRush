@@ -40,7 +40,7 @@
     game.gravity = 1;
     game.score = 0;
     preloadAssets();
-    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav');
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav');
     
     game.onload = gameInit;
     
@@ -54,7 +54,8 @@
     game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
-    // game.theme_song.play();
+    game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
+    game.theme_song.play();
     backdrop = new Sprite(762,488);
     var ground = new Sprite(243,40);
     var ground2 = new Sprite(243,40);
@@ -132,6 +133,7 @@
         this.addEventListener('enterframe',function(){
           for(var i in enemies){
             if(enemies[i].intersect(this)){
+              game.zombie_die.play();
               this.remove();
               enemies[i].remove();
             }
