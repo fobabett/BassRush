@@ -15,6 +15,9 @@
       ground3: '/assets/images/ground3.jpg',
       bd: '/assets/images/backdrop.png',
       gameover: '/assets/images/gameover.png'
+    },
+    AUDIO: {
+      theme_song: '/assets/audio/bass_rush_wip.mp3'
     }
   };
   var game;
@@ -23,6 +26,7 @@
   var enemies = [];
   var enemy;
   var coins =[];
+  
 
 
 
@@ -36,7 +40,10 @@
     game.gravity = 1;
     game.score = 0;
     preloadAssets();
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav');
+    
     game.onload = gameInit;
+    
 
     game.onenterframe = gameLoop;
 
@@ -44,6 +51,10 @@
     
   }
   function gameInit() {
+    game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
+    game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
+    game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
+    // game.theme_song.play();
     backdrop = new Sprite(762,488);
     var ground = new Sprite(243,40);
     var ground2 = new Sprite(243,40);
@@ -60,8 +71,9 @@
         this.image = game.assets[GAME_ASSET.IMAGES.bass_god];
         this.x = x;
         this.y = y;
-        this.frame = 0;
+        this.frame = 4;
         game.rootScene.addChild(this);
+        // this.frame = [6, 6, 7, 7];
 
         this.addEventListener('enterframe',function(){
 
@@ -69,6 +81,7 @@
       }
     });
     var player = new Player(50,340);
+    // player.frame = [0, 1, 2, 3];
 
     // ENEMY CLASS
     var Enemy = enchant.Class.create(enchant.Sprite, {
@@ -111,6 +124,8 @@
 
         this.x += this.speed * Math.cos(this.direction);
 
+        
+
 
         game.rootScene.addChild(this);
 
@@ -140,6 +155,7 @@
         this.frame = 3;
         this.direction = 0;
         this.speed = 10;
+        this.coins_collected = 0;
         this.addEventListener('enterframe',function(){
           this.x -= this.speed * Math.cos(this.direction);
           this.x += this.speed * Math.sin(this.direction);
@@ -149,6 +165,13 @@
           }
 
           if(this.intersect(player)){
+            this.coins_colllected = this.coins_collected++;
+            game.coin_sfx.play();
+            this.remove();
+            console.log(this.coins_collected);
+          }
+
+          if(this.x > STAGE_WIDTH){
             this.remove();
           }
         });
@@ -182,7 +205,8 @@
         bass_cannon.y = player.y+30;
         bass_cannon.x = player.x +150;
         bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
-      // game.assets['/assets/sfx/bass_cannon_aduio.wav'].play();
+        // game.bass_cannon_audio = game.assets['/assets/audio/bass_rush_wip.mp3'];
+        game.bass_cannon_wub.play();
         console.log('wub');
       }
 
@@ -235,7 +259,7 @@
  
   }
   function preloadAssets() {
-    // game.preload(GAME_ASSET.AUDIO.bass_cannon_audio.wav);
+    game.preload(GAME_ASSET.AUDIO.theme_song);
     game.preload(GAME_ASSET.IMAGES.bd);
     game.preload(GAME_ASSET.IMAGES.ground);
     game.preload(GAME_ASSET.IMAGES.ground2);
@@ -257,6 +281,7 @@
     var gameover = new Sprite(300,75);
     gameover.image = game.assets[GAME_ASSET.IMAGES.gameover];
     game.rootScene.addChild(gameover);
+    game.theme_song.stop();
     game.stop();
     console.log('You dropped the bass m8. GAMEOVER');
   }
