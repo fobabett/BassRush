@@ -38,7 +38,7 @@
     game = new Core(STAGE_WIDTH, STAGE_HEIGHT);
     game.fps = 60;
     game.gravity = 1;
-    game.score = 0;
+    game.coins = 0;
     preloadAssets();
     game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav');
     
@@ -51,6 +51,15 @@
     
   }
   function gameInit() {
+    coinLabel = new Label("Coins: 0");
+    coinLabel.color = "white";
+    coinLabel.font = "28px monospace";
+    game.rootScene.addChild(coinLabel);
+
+    coinLabel.addEventListener('enterframe', function(){
+      this.text = "Coins: "+game.coins;
+    });
+
     game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
@@ -157,7 +166,7 @@
         this.frame = 3;
         this.direction = 0;
         this.speed = 10;
-        this.coins_collected = 0;
+
         this.addEventListener('enterframe',function(){
           this.x -= this.speed * Math.cos(this.direction);
           this.x += this.speed * Math.sin(this.direction);
@@ -167,10 +176,9 @@
           }
 
           if(this.intersect(player)){
-            this.coins_colllected = this.coins_collected++;
+            game.coins++
             game.coin_sfx.play();
             this.remove();
-            console.log(this.coins_collected);
           }
 
           if(this.x > STAGE_WIDTH){
