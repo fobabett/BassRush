@@ -1,6 +1,6 @@
 
 canvas {
-  background-image: url('/assets/images/ground.jpg');
+  background-image: url('/assets/images/ground.png');
   background-position: 100% 0;
   background-repeat: repeat-x;
   top: 0;
@@ -12,7 +12,7 @@ canvas {
    -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-animation: parallax 2s linear infinite;
+  -webkit-animation: parallax 1s linear infinite;
 }
 
 @-webkit-keyframes parallax {

@@ -5,14 +5,14 @@
   var STAGE_WIDTH = 800;
   var GAME_ASSET = {
     IMAGES: {
-      bass_god: '/assets/images/bass_god.png',
+      bass_god: '/assets/images/bass_god1.png',
       bass_cannon: '/assets/images/cannon_fire.png',
       bass_coin: '/assets/images/bass_coin.png',
+      green_lasers: '/assets/images/green_lasers.png',
+      red_lasers: '/assets/images/red_lasers.png',
       // bg: '/assets/images/bg32_32.png',
       enemy: '/assets/images/enemy.png',
-      ground: '/assets/images/ground.jpg',
-      ground2: '/assets/images/ground2.jpg',
-      ground3: '/assets/images/ground3.jpg',
+      ground: '/assets/images/ground.png',
       bd: '/assets/images/backdrop.png',
       gameover: '/assets/images/gameover.png'
     },
@@ -37,7 +37,7 @@
     enchant();
     game = new Core(STAGE_WIDTH, STAGE_HEIGHT);
     game.fps = 60;
-    game.gravity = 1;
+    game.gravity = 15;
     game.coins = 0;
     preloadAssets();
     game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav');
@@ -76,14 +76,35 @@
     game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
     game.theme_song.play();
     backdrop = new Sprite(762,488);
-    var ground = new Sprite(243,40);
-    var ground2 = new Sprite(243,40);
-    var ground3 = new Sprite(243,40);
+
+    var ground = new Sprite(60,60);
+    ground.image = game.assets[GAME_ASSET.IMAGES.ground];
+    // game.rootScene.addChild(ground);
+    ground.y = 420;
     // player = new Sprite(150,101);
     // bass_cannon = new Sprite(34,24);
     // bass_coin = new Sprite(34,34);
     // scoreLabel = new ScoreLabel(8,8);
     // game.rootScene.addChild(scoreLabel);
+
+    // // GROUND CLASS
+    // var Ground = enchant.Class.create(enchant.Sprite, {
+    //   initialize: function(x,y){
+    //     enchant.Sprite.call(this,60,60);
+    //     this.image = game.assets[GAME_ASSET.IMAGES.ground];
+    //     this.x = x;
+    //     this.y = y;
+    //     this.frame = 4;
+    //     game.rootScene.addChild(this);
+    //     // this.frame = [6, 6, 7, 7];
+
+    //     this.addEventListener('enterframe',function(){
+
+    //     });
+    //   }
+    // });
+
+
     // PLAYER CLASS
     var Player = enchant.Class.create(enchant.Sprite, {
       initialize: function(x,y){
@@ -91,7 +112,7 @@
         this.image = game.assets[GAME_ASSET.IMAGES.bass_god];
         this.x = x;
         this.y = y;
-        this.frame = 4;
+        this.frame = 0.005;
         game.rootScene.addChild(this);
         // this.frame = [6, 6, 7, 7];
 
@@ -100,8 +121,8 @@
         });
       }
     });
-    var player = new Player(50,340);
-    // player.frame = [0, 1, 2, 3];
+    var player = new Player(50,320);
+    player.frame = [6,6,7,7];
 
     // ENEMY CLASS
     var Enemy = enchant.Class.create(enchant.Sprite, {
@@ -199,11 +220,26 @@
         game.rootScene.addChild(this);
       }
     });
+    // LASER CLASS
+    // var Lasers = enchant.Class.create(enchant.Sprite, {
+    //   initialize: function(x,y) {
+    //     enchant.Sprite.call(this,1000,333);
+    //     this.image = game.assets[GAME_ASSET.IMAGES.green_lasers];
+    //     this.x = x;
+    //     this.y = y;
+    //     this.frame = 3;
+    //     this.direction = 0;
+    //     this.speed = 10;   
+
+    //     game.rootScene.addChild(this);
+    //     // setInterval(function () {this.remove();}, 3000);
+    //   }
+    // });
 
     game.rootScene.addEventListener('enterframe', function(){
       // generates enemies
       if(Math.random()*1000 < 10) {
-        var enemy = new Enemy(STAGE_WIDTH, 340);
+        var enemy = new Enemy(STAGE_WIDTH, 320);
         enemy.key = game.frame;
         enemies[game.frame] = enemy;
       }
@@ -218,6 +254,27 @@
             .scaleTo(1, 1, 10)       // turn right
             .loop(); 
       };
+
+      // // LASERSSSSSS ////////
+      // if(Math.random()*1000 < 10) {
+      //   var green_lasers = new Lasers(0,50);
+      //   // green_lasers.y = 50;
+      //   // green_lasers.x = 0;
+      //   // green_lasers.image = game.assets[GAME_ASSET.IMAGES.green_lasers];
+      //   // game.rootScene.addChild(green_lasers);
+      //   // game.rootScene.removeChild(green_lasers);
+      // };
+      // if(Math.random()*1000 < 10) {
+      //   var red_lasers = new Sprite(1000,333);
+      //   red_lasers.y = 100;
+      //   red_lasers.x = -20;
+      //   red_lasers.image = game.assets[GAME_ASSET.IMAGES.red_lasers];
+      //   game.rootScene.addChild(red_lasers);
+      //   setInterval(function() {
+      //     game.rootScene.removeChild(red_Lasers)
+      //   },1000);
+
+      // };
       
 
       if(game.input.right) {
@@ -225,10 +282,10 @@
         bass_cannon.y = player.y+30;
         bass_cannon.x = player.x +150;
         bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
-        // game.bass_cannon_audio = game.assets['/assets/audio/bass_rush_wip.mp3'];
         game.bass_cannon_wub.play();
         console.log('wub');
       }
+
 
       // enemy hits player
       for(var i in enemies){
@@ -236,10 +293,12 @@
           game.rootScene.removeChild(player);
           gameOver();
         }
+        // if(bass_cannon.intersect(enemies[i])) {
+        //   game.rootScene.removeChild(bass_cannon);
+        // }
       }
 
       var ground = 340;
-      player.gravity = 5;
 
       // sprite jumps when up arrow is pushed
       if(game.input.up) {
@@ -248,23 +307,19 @@
       }
   
       // sprite falls to ground
-      if(player.y < ground) {
-        player.y += player.gravity;
+      if(player.y < 320) {
+        player.y += game.gravity;
       }
     });
 
     
     ground.x = 0;
-    ground2.y += STAGE_HEIGHT -40;
-    ground2.x = 700;
-    ground3.y += STAGE_HEIGHT -40;
-    ground3.x = 800;
+  
 
 
     backdrop.image = game.assets[GAME_ASSET.IMAGES.bd];
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
-    ground2.image = game.assets[GAME_ASSET.IMAGES.ground2];
-    ground3.image = game.assets[GAME_ASSET.IMAGES.ground3];
+    
    
     game.rootScene.addChild(player);
 
@@ -280,10 +335,11 @@
   }
   function preloadAssets() {
     game.preload(GAME_ASSET.AUDIO.theme_song);
+    game.preload(GAME_ASSET.IMAGES.green_lasers);
+    game.preload(GAME_ASSET.IMAGES.red_lasers);
+    // game.preload(GAME_ASSET.IMAGES.lasers);
     game.preload(GAME_ASSET.IMAGES.bd);
     game.preload(GAME_ASSET.IMAGES.ground);
-    game.preload(GAME_ASSET.IMAGES.ground2);
-    game.preload(GAME_ASSET.IMAGES.ground3);
     game.preload(GAME_ASSET.IMAGES.bass_god);
     game.preload(GAME_ASSET.IMAGES.bass_cannon);
     game.preload(GAME_ASSET.IMAGES.bass_coin);
