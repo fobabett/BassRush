@@ -9,6 +9,7 @@
       bass_cannon: '/assets/images/cannon_fire.png',
       bass_coin: '/assets/images/bass_coin.png',
       power_up_sf: '/assets/images/sausage_fattener_pu.png',
+      sausage_banner: '/assets/images/bass_pu_banner.png',
       green_lasers: '/assets/images/green_lasers.png',
       red_lasers: '/assets/images/red_lasers.png',
       // bg: '/assets/images/bg32_32.png',
@@ -243,8 +244,12 @@
           }
 
           if(this.intersect(player)){
+            var bass_banner = new BassBanner(0,100);
             game.damn_son.play();
             this.remove();
+            setTimeout(function() {
+              bass_banner.remove();
+            }, 1000);
           }
 
           if(this.x > STAGE_WIDTH){
@@ -254,7 +259,23 @@
 
         game.rootScene.addChild(this);
       }
-    })
+    });
+
+    var BassBanner = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,800,333);
+        this.image = game.assets[GAME_ASSET.IMAGES.sausage_banner];
+        this.x = x;
+        this.y = y;
+
+        game.rootScene.addChild(this);
+
+        // setTimeout(function() {
+        //   this.remove();
+        // }, 5000);
+      }
+    });
+
     // LASER CLASS
     var Lasers = enchant.Class.create(enchant.Sprite, {
       initialize: function(x,y) {
@@ -384,6 +405,7 @@
     game.preload(GAME_ASSET.IMAGES.bass_cannon);
     game.preload(GAME_ASSET.IMAGES.bass_coin);
     game.preload(GAME_ASSET.IMAGES.power_up_sf);
+    game.preload(GAME_ASSET.IMAGES.sausage_banner);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
