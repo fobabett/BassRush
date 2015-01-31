@@ -8,6 +8,7 @@
       bass_god: '/assets/images/bass_god1.png',
       bass_cannon: '/assets/images/cannon_fire.png',
       bass_coin: '/assets/images/bass_coin.png',
+      power_up_sf: '/assets/images/sausage_fattener_pu.png',
       green_lasers: '/assets/images/green_lasers.png',
       red_lasers: '/assets/images/red_lasers.png',
       // bg: '/assets/images/bg32_32.png',
@@ -40,7 +41,7 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav');
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav');
     
     game.onload = gameInit;
     
@@ -52,7 +53,7 @@
   }
   function gameInit() {
     coinLabel = new Label("Coins: 0");
-    coinLabel.color = "white";
+    coinLabel.color = "yellow";
     coinLabel.font = "28px monospace";
     game.rootScene.addChild(coinLabel);
 
@@ -67,10 +68,11 @@
     });
 
     distanceLabel.addEventListener('enterframe', function(){
-      this.text = "Distance: "+game.frame + " m";
+      this.text = "Distance: " + game.frame + " m";
     });
 
     game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
+    game.damn_son = game.assets['/assets/sfx/DamnSon.wav'];
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
     game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
@@ -112,7 +114,7 @@
         this.image = game.assets[GAME_ASSET.IMAGES.bass_god];
         this.x = x;
         this.y = y;
-        this.frame = 0.005;
+        this.frame++;
         game.rootScene.addChild(this);
         // this.frame = [6, 6, 7, 7];
 
@@ -220,21 +222,54 @@
         game.rootScene.addChild(this);
       }
     });
-    // LASER CLASS
-    // var Lasers = enchant.Class.create(enchant.Sprite, {
-    //   initialize: function(x,y) {
-    //     enchant.Sprite.call(this,1000,333);
-    //     this.image = game.assets[GAME_ASSET.IMAGES.green_lasers];
-    //     this.x = x;
-    //     this.y = y;
-    //     this.frame = 3;
-    //     this.direction = 0;
-    //     this.speed = 10;   
 
-    //     game.rootScene.addChild(this);
-    //     // setInterval(function () {this.remove();}, 3000);
-    //   }
-    // });
+    // POWER UPS
+    var Sausage = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,40,65);
+        this.image = game.assets[GAME_ASSET.IMAGES.power_up_sf];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        this.direction = 0;
+        this.speed = 10;
+
+        this.addEventListener('enterframe',function(){
+          this.x -= this.speed * Math.cos(this.direction);
+          this.x += this.speed * Math.sin(this.direction);
+
+          if(this.x < 0) {
+            this.remove();
+          }
+
+          if(this.intersect(player)){
+            game.damn_son.play();
+            this.remove();
+          }
+
+          if(this.x > STAGE_WIDTH){
+            this.remove();
+          }
+        });
+
+        game.rootScene.addChild(this);
+      }
+    })
+    // LASER CLASS
+    var Lasers = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,1000,333);
+        this.image = game.assets[GAME_ASSET.IMAGES.green_lasers];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        this.direction = 0;
+        this.speed = 10;   
+
+        game.rootScene.addChild(this);
+        // setInterval(function () {this.remove();}, 3000);
+      }
+    });
 
     game.rootScene.addEventListener('enterframe', function(){
       // generates enemies
@@ -254,6 +289,11 @@
             .scaleTo(1, 1, 10)       // turn right
             .loop(); 
       };
+      // generates powerups
+      if(Math.random()*10000 < 10) {
+        var y = Math.random()*100;
+        var fat_bass_power_up = new Sausage(STAGE_WIDTH, y);
+      }
 
       // // LASERSSSSSS ////////
       // if(Math.random()*1000 < 10) {
@@ -343,6 +383,7 @@
     game.preload(GAME_ASSET.IMAGES.bass_god);
     game.preload(GAME_ASSET.IMAGES.bass_cannon);
     game.preload(GAME_ASSET.IMAGES.bass_coin);
+    game.preload(GAME_ASSET.IMAGES.power_up_sf);
     game.preload(GAME_ASSET.IMAGES.enemy);
     game.preload(GAME_ASSET.IMAGES.gameover);
   }
