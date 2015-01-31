@@ -42,7 +42,7 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav');
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav');
     
     game.onload = gameInit;
     
@@ -78,6 +78,7 @@
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
     game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
+    game.gameover = game.assets['/assets/sfx/gameover_audio.wav'];
     // game.theme_song.play();
     backdrop = new Sprite(762,488);
 
@@ -422,7 +423,8 @@
     gameover.y = 50;
     gameover.image = game.assets[GAME_ASSET.IMAGES.gameover];
     game.rootScene.addChild(gameover);
-    game.theme_song.stop();
+    // game.theme_song.stop();
+    game.gameover.play();
     game.stop();
     console.log('You dropped the bass m8. GAMEOVER');
   }
