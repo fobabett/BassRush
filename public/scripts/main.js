@@ -42,7 +42,7 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav');
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav');
     
     game.onload = gameInit;
     
@@ -74,6 +74,7 @@
 
     game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
     game.damn_son = game.assets['/assets/sfx/DamnSon.wav'];
+    game.laser = game.assets['/assets/sfx/laser_audio.wav'];
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
     game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
@@ -246,6 +247,7 @@
           if(this.intersect(player)){
             var bass_banner = new BassBanner(0,100);
             game.damn_son.play();
+            console.log('damn son');
             this.remove();
             setTimeout(function() {
               bass_banner.remove();
@@ -288,7 +290,7 @@
         this.speed = 10;   
 
         game.rootScene.addChild(this);
-        // setInterval(function () {this.remove();}, 3000);
+
       }
     });
 
@@ -317,25 +319,27 @@
       }
 
       // // LASERSSSSSS ////////
-      // if(Math.random()*1000 < 10) {
-      //   var green_lasers = new Lasers(0,50);
-      //   // green_lasers.y = 50;
-      //   // green_lasers.x = 0;
-      //   // green_lasers.image = game.assets[GAME_ASSET.IMAGES.green_lasers];
-      //   // game.rootScene.addChild(green_lasers);
-      //   // game.rootScene.removeChild(green_lasers);
-      // };
-      // if(Math.random()*1000 < 10) {
-      //   var red_lasers = new Sprite(1000,333);
-      //   red_lasers.y = 100;
-      //   red_lasers.x = -20;
-      //   red_lasers.image = game.assets[GAME_ASSET.IMAGES.red_lasers];
-      //   game.rootScene.addChild(red_lasers);
-      //   setInterval(function() {
-      //     game.rootScene.removeChild(red_Lasers)
-      //   },1000);
+      if(Math.random()*1000 < 10) {
+        var green_lasers = new Lasers(0,50);
+        game.laser.play();
 
-      // };
+        setInterval(function() {
+          green_lasers.remove();
+        },100);
+      };
+      if(Math.random()*1000 < 10) {
+        var red_lasers = new Sprite(1000,333);
+        red_lasers.y = 100;
+        red_lasers.x = -20;
+        red_lasers.image = game.assets[GAME_ASSET.IMAGES.red_lasers];
+        game.rootScene.addChild(red_lasers);
+        game.laser.play();
+
+        setInterval(function() {
+          red_lasers.remove();
+        },100);
+
+      };
       
 
       if(game.input.right) {
