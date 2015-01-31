@@ -78,7 +78,7 @@
     game.bass_cannon_wub = game.assets['/assets/sfx/bass_cannon_audio.wav'];
     game.coin_sfx = game.assets['/assets/sfx/coin5.wav'];
     game.zombie_die = game.assets['/assets/sfx/zombie_die.wav'];
-    game.theme_song.play();
+    // game.theme_song.play();
     backdrop = new Sprite(762,488);
 
     var ground = new Sprite(60,60);
@@ -178,8 +178,8 @@
           for(var i in enemies){
             if(enemies[i].intersect(this)){
               game.zombie_die.play();
-              this.remove();
               enemies[i].remove();
+              this.remove();
             }
           }
 
@@ -358,9 +358,6 @@
           game.rootScene.removeChild(player);
           gameOver();
         }
-        // if(bass_cannon.intersect(enemies[i])) {
-        //   game.rootScene.removeChild(bass_cannon);
-        // }
       }
 
       var ground = 340;
@@ -421,7 +418,8 @@
 
   function gameOver() {
  
-    var gameover = new Sprite(300,75);
+    var gameover = new Sprite(800,333);
+    gameover.y = 50;
     gameover.image = game.assets[GAME_ASSET.IMAGES.gameover];
     game.rootScene.addChild(gameover);
     game.theme_song.stop();
