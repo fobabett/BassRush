@@ -14,7 +14,7 @@
       sausage_banner: '/assets/images/bass_pu_banner.png',
       green_lasers: '/assets/images/green_lasers.png',
       red_lasers: '/assets/images/red_lasers.png',
-      // bg: '/assets/images/bg32_32.png',
+      // bg: '/assets/images/backdrop.png',
       enemy: '/assets/images/enemy.png',
       ground: '/assets/images/ground.png',
       bd: '/assets/images/backdrop.png',
@@ -86,11 +86,12 @@
     game.footsteps.play();
     
 
-    backdrop = new Sprite(762,488);
+    backdrop = new Sprite(800,281);
+    backdrop.y = 140;
 
     var ground = new Sprite(60,60);
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
-    // game.rootScene.addChild(ground);
+    game.rootScene.addChild(backdrop);
     ground.y = 420;
 
     // REASSIGN KEYS
@@ -346,7 +347,7 @@
       }
       // generates coins
           if(Math.random()*100 < 10) {
-            var y = Math.random()*100;
+            var y = Math.random()*220;
             var bass_coin = new Coins(STAGE_WIDTH, y);
 
             bass_coin.tl.moveBy(0, 0, 5)   // move right
