@@ -9,6 +9,7 @@
       bass_cannon: '/assets/images/cannon_fire.png',
       cannon_powerup: '/assets/images/power_up_fire.png',
       bass_coin: '/assets/images/bass_coin.png',
+      obstacle: '/assets/images/obstacle.png',
       power_up_sf: '/assets/images/sausage_fattener_pu.png',
       sausage_banner: '/assets/images/bass_pu_banner.png',
       green_lasers: '/assets/images/green_lasers.png',
@@ -106,6 +107,7 @@
         this.y = y;
         this.frame++;
         this.speed = 5;
+        this.age = 0;
         game.rootScene.addChild(this);
         // this.frame = [6, 6, 7, 7];
 
@@ -220,6 +222,41 @@
       }
     });
 
+    // OBSTACLES
+    var Obstacles = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y) {
+        enchant.Sprite.call(this,35,24);
+        this.image = game.assets[GAME_ASSET.IMAGES.obstacle];
+        this.x = x;
+        this.y = y;
+        this.frame = 3;
+        this.direction = 0;
+        this.speed = 10;
+
+        this.addEventListener('enterframe',function(){
+          this.x -= this.speed * Math.cos(this.direction);
+          this.x += this.speed * Math.sin(this.direction);
+
+          if(this.x < 0) {
+            this.remove();
+          }
+
+          if(this.intersect(player)){
+            
+            player.remove();
+            gameOver();
+          }
+
+          if(this.x > STAGE_WIDTH){
+            this.remove();
+
+          }
+        });
+
+        game.rootScene.addChild(this);
+      }
+    });
+
     // POWER UPS
     var Sausage = enchant.Class.create(enchant.Sprite, {
       initialize: function(x,y) {
@@ -292,17 +329,23 @@
 
     game.rootScene.addEventListener('enterframe', function(){
       // Loop footsteps
-    if (game.footsteps.currentTime >= game.footsteps.duration ){
-      game.footsteps.play();
-    }
+      if (game.footsteps.currentTime >= game.footsteps.duration ){
+        game.footsteps.play();
+       }
       // generates enemies
       if(Math.random()*1000 < 10) {
         var enemy = new Enemy(STAGE_WIDTH, 320);
         enemy.key = game.frame;
         enemies[game.frame] = enemy;
       }
+       // generates obstacles
+      if(Math.random()*1000 < 10) {
+        var y = Math.random()*200;
+        var obstacles = new Obstacles(STAGE_WIDTH, y);
+        
+      }
       // generates coins
-          if(Math.random()*1000 < 10) {
+          if(Math.random()*100 < 10) {
             var y = Math.random()*100;
             var bass_coin = new Coins(STAGE_WIDTH, y);
 
@@ -313,7 +356,7 @@
             .loop(); 
       };
       // generates powerups
-      if(Math.random()*10000 < 10) {
+      if(Math.random()*1000 < 1) {
         var y = Math.random()*100;
         var fat_bass_power_up = new Sausage(STAGE_WIDTH, y);
       }
@@ -361,16 +404,15 @@
         }
       }
 
-      var ground = 340;
+      var ground = 320;
 
-      // sprite jumps when up arrow is pushed
+      // sprite jumps when spacebar is pressed
       if(game.input.up) {
-        player.y -= 60;
-        console.log('jump test');
+        player.y -= 40;
       }
   
       // sprite falls to ground
-      if(player.y < 320) {
+      if(player.y < ground) {
         player.y += game.gravity;
       }
     });
@@ -400,6 +442,7 @@
     game.preload(GAME_ASSET.AUDIO.theme_song);
     game.preload(GAME_ASSET.IMAGES.green_lasers);
     game.preload(GAME_ASSET.IMAGES.red_lasers);
+    game.preload(GAME_ASSET.IMAGES.obstacle);
     // game.preload(GAME_ASSET.IMAGES.lasers);
     game.preload(GAME_ASSET.IMAGES.bd);
     game.preload(GAME_ASSET.IMAGES.ground);
