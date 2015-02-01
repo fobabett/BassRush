@@ -5,6 +5,7 @@
   var STAGE_WIDTH = 800;
   var GAME_ASSET = {
     IMAGES: {
+      logo: '/assets/images/bassRushLogo.png',
       bass_god: '/assets/images/bass_god1.png',
       bass_cannon: '/assets/images/cannon_fire.png',
       cannon_powerup: '/assets/images/power_up_fire.png',
@@ -44,17 +45,55 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav', '/assets/sfx/footsteps.wav');
+    game.preload('/assets/audio/bass_rush_wip.mp3', '/assets/sfx/bass_cannon_audio.wav', '/assets/sfx/coin5.wav', '/assets/sfx/zombie_die.wav', '/assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav', '/assets/sfx/footsteps.wav', '/assets/images/bassRushLogo.png');
     
-    game.onload = gameInit;
+    // game.onload = gameInit;
+    game.onload = gameMenu;
     
 
     game.onenterframe = gameLoop;
 
+    
     game.start();
     
   }
+  function gameMenu() {
+    logo = new Sprite(500,330);
+
+    logo.image = game.assets['/assets/images/bassRushLogo.png'];
+    game.rootScene.addChild(logo);
+    logo.x = 150;
+
+    setInterval(function() {
+      startLabel = new Label("Press ENTER to start");
+      startLabel.color = "white";
+      startLabel.font = "20px monospace";
+      startLabel.x = 280;
+      startLabel.y = 300;
+      game.rootScene.addChild(startLabel); 
+    },5000);
+
+    game.addEventListener('keydown', function(e) {
+      // game.keybind(13,'right');
+      if(game.input.left) {
+        game.rootScene.removeChild(logo);
+        game.rootScene.removeChild(startLabel);
+        gameInit();
+      }
+    });
+
+  }
   function gameInit() {
+
+    // logo = new Sprite(500,330);
+
+    // logo.image = game.assets['/assets/images/bassRushLogo.png'];
+    // game.rootScene.addChild(logo);
+    
+    
+   
+   
+
     coinLabel = new Label("Coins: 0");
     coinLabel.color = "yellow";
     coinLabel.font = "28px monospace";
@@ -89,10 +128,10 @@
     // backdrop = new Sprite(800,281);
     // backdrop.y = 140;
 
-    var ground = new Sprite(60,60);
-    ground.image = game.assets[GAME_ASSET.IMAGES.ground];
-    // game.rootScene.addChild(backdrop);
-    ground.y = 420;
+    // var ground = new Sprite(60,60);
+    // ground.image = game.assets[GAME_ASSET.IMAGES.ground];
+    // // game.rootScene.addChild(backdrop);
+    // ground.y = 420;
 
     // REASSIGN KEYS
     game.keybind(32, 'up');  //spacebar 
@@ -109,16 +148,16 @@
 
         this.addEventListener('enterframe',function(){
           this.x--;
-          // if(this.x < -300 ) {
-          //   this.x = 0;
-          // }
+          if(this.x < -300 ) {
+            this.x = 0;
+          }
         });
 
         game.rootScene.addChild(this);
       }
     });
     
-    var backgroun = new Background(0,140);
+    var background = new Background(0,140);
 
 
 
@@ -442,28 +481,25 @@
       }
     });
 
-    
-    ground.x = 0;
+ 
   
 
 
     
-    ground.image = game.assets[GAME_ASSET.IMAGES.ground];
+   
     
    
-    game.rootScene.addChild(player);
+    // game.rootScene.addChild(player);
 
 
 
 
-    ground.y += STAGE_HEIGHT -40;
-    
-    ground.width = STAGE_WIDTH;
 
     // calculate distance
  
   }
   function preloadAssets() {
+    game.preload(GAME_ASSET.IMAGES.logo);
     game.preload(GAME_ASSET.AUDIO.theme_song);
     game.preload(GAME_ASSET.IMAGES.green_lasers);
     game.preload(GAME_ASSET.IMAGES.red_lasers);
