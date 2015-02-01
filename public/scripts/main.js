@@ -86,18 +86,42 @@
     game.footsteps.play();
     
 
-    backdrop = new Sprite(800,281);
-    backdrop.y = 140;
+    // backdrop = new Sprite(800,281);
+    // backdrop.y = 140;
 
     var ground = new Sprite(60,60);
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
-    game.rootScene.addChild(backdrop);
+    // game.rootScene.addChild(backdrop);
     ground.y = 420;
 
     // REASSIGN KEYS
     game.keybind(32, 'up');  //spacebar 
     game.keybind(13, 'right'); //enter key
   
+
+    // BACKGROUND CLASS
+    var Background = enchant.Class.create(enchant.Sprite, {
+      initialize: function(x,y){
+        enchant.Sprite.call(this,800,281);
+        this.image = game.assets[GAME_ASSET.IMAGES.bd];
+        this.x = x;
+        this.y = y;
+
+        this.addEventListener('enterframe',function(){
+          this.x--;
+          // if(this.x < -300 ) {
+          //   this.x = 0;
+          // }
+        });
+
+        game.rootScene.addChild(this);
+      }
+    });
+    
+    var backgroun = new Background(0,140);
+
+
+
 
     // PLAYER CLASS
     var Player = enchant.Class.create(enchant.Sprite, {
@@ -423,7 +447,7 @@
   
 
 
-    backdrop.image = game.assets[GAME_ASSET.IMAGES.bd];
+    
     ground.image = game.assets[GAME_ASSET.IMAGES.ground];
     
    
