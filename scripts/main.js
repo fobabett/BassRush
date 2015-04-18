@@ -45,7 +45,7 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('../assets/audio/bass_rush_wip.mp3', '../assets/sfx/bass_cannon_audio.wav', '../assets/sfx/coin5.wav', '../assets/sfx/zombie_die.wav', '../assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav', '/assets/sfx/footsteps.wav', '/assets/images/bassRushLogo.png');
+    game.preload('../assets/audio/bass_rush_wip.mp3', '../assets/sfx/bass_cannon_audio.wav', '../assets/sfx/coin5.wav', '../assets/sfx/zombie_die.wav', '../assets/sfx/DamnSon.wav', '../assets/sfx/laser_audio.wav', '../assets/sfx/gameover_audio.wav', '../assets/sfx/footsteps.wav', '../assets/images/bassRushLogo.png');
     
     // game.onload = gameInit;
     game.onload = gameMenu;
