@@ -59,32 +59,37 @@
   }
   function gameMenu() {
     logo = new Sprite(500,330);
+    game.theme_song = game.assets['/assets/audio/bass_rush_wip.mp3'];
+    game.theme_song.play();
 
     logo.image = game.assets['/assets/images/bassRushLogo.png'];
     game.rootScene.addChild(logo);
     logo.x = 150;
 
-    setInterval(function() {
-      startLabel = new Label("Press ENTER to start");
+    startLabel = new Label("Press ENTER to start");
       startLabel.color = "white";
       startLabel.font = "20px monospace";
       startLabel.x = 280;
       startLabel.y = 300;
+
+    setInterval(function() {
+      
       game.rootScene.addChild(startLabel); 
-    },5000);
+    },11000);
 
     game.addEventListener('keydown', function(e) {
-      // game.keybind(13,'right');
+      // game.keybind(13,'up');
       if(game.input.left) {
-        game.rootScene.removeChild(logo);
         game.rootScene.removeChild(startLabel);
+
+        game.rootScene.removeChild(logo);
         gameInit();
+        game.theme_song.stop();
       }
     });
 
   }
   function gameInit() {
-
     // logo = new Sprite(500,330);
 
     // logo.image = game.assets['/assets/images/bassRushLogo.png'];
@@ -106,7 +111,7 @@
     game.rootScene.addChild(distanceLabel);
 
     coinLabel.addEventListener('enterframe', function(){
-      this.text = "Coins: "+game.coins;
+      this.text = "Coins: "+ game.coins;
     });
 
     distanceLabel.addEventListener('enterframe', function(){
@@ -157,7 +162,7 @@
       }
     });
     
-    var background = new Background(0,140);
+    // var background = new Background(0,140);
 
 
 
