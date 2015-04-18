@@ -5,24 +5,24 @@
   var STAGE_WIDTH = 800;
   var GAME_ASSET = {
     IMAGES: {
-      logo: '/../assets/images/bassRushLogo.png',
-      bass_god: '/../assets/images/bass_god1.png',
-      bass_cannon: '/../assets/images/cannon_fire.png',
-      cannon_powerup: '/../assets/images/power_up_fire.png',
-      bass_coin: '/../assets/images/bass_coin.png',
-      obstacle: '/../assets/images/obstacle.png',
-      power_up_sf: '/../assets/images/sausage_fattener_pu.png',
-      sausage_banner: '/../assets/images/bass_pu_banner.png',
-      green_lasers: '/../assets/images/green_lasers.png',
-      red_lasers: '/../assets/images/red_lasers.png',
+      logo: '../assets/images/bassRushLogo.png',
+      bass_god: '../assets/images/bass_god1.png',
+      bass_cannon: '../assets/images/cannon_fire.png',
+      cannon_powerup: '../assets/images/power_up_fire.png',
+      bass_coin: '../assets/images/bass_coin.png',
+      obstacle: '../assets/images/obstacle.png',
+      power_up_sf: '../assets/images/sausage_fattener_pu.png',
+      sausage_banner: '../assets/images/bass_pu_banner.png',
+      green_lasers: '../assets/images/green_lasers.png',
+      red_lasers: '../assets/images/red_lasers.png',
       // bg: '/assets/images/backdrop.png',
-      enemy: '/../assets/images/enemy.png',
-      ground: '/../assets/images/ground.png',
-      bd: '/../assets/images/backdrop.png',
-      gameover: '/../assets/images/gameover.png'
+      enemy: '../assets/images/enemy.png',
+      ground: '../assets/images/ground.png',
+      bd: '../assets/images/backdrop.png',
+      gameover: '../assets/images/gameover.png'
     },
     AUDIO: {
-      theme_song: '/../assets/audio/bass_rush_wip.mp3'
+      theme_song: '../assets/audio/bass_rush_wip.mp3'
     }
   };
   var game;
@@ -45,7 +45,7 @@
     game.gravity = 15;
     game.coins = 0;
     preloadAssets();
-    game.preload('/../assets/audio/bass_rush_wip.mp3', '/../assets/sfx/bass_cannon_audio.wav', '/../assets/sfx/coin5.wav', '/../assets/sfx/zombie_die.wav', '/../assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav', '/assets/sfx/footsteps.wav', '/assets/images/bassRushLogo.png');
+    game.preload('../assets/audio/bass_rush_wip.mp3', '../assets/sfx/bass_cannon_audio.wav', '../assets/sfx/coin5.wav', '../assets/sfx/zombie_die.wav', '../assets/sfx/DamnSon.wav', '/assets/sfx/laser_audio.wav', '/assets/sfx/gameover_audio.wav', '/assets/sfx/footsteps.wav', '/assets/images/bassRushLogo.png');
     
     // game.onload = gameInit;
     game.onload = gameMenu;
@@ -59,10 +59,10 @@
   }
   function gameMenu() {
     logo = new Sprite(500,330);
-    game.theme_song = game.assets['/../assets/audio/bass_rush_wip.mp3'];
+    game.theme_song = game.assets['../assets/audio/bass_rush_wip.mp3'];
     game.theme_song.play();
 
-    logo.image = game.assets['/../assets/images/bassRushLogo.png'];
+    logo.image = game.assets['../assets/images/bassRushLogo.png'];
     game.rootScene.addChild(logo);
     logo.x = 150;
 
@@ -118,14 +118,14 @@
       this.text = "Distance: " + game.frame + " m";
     });
 
-    game.theme_song = game.assets['/../assets/audio/bass_rush_wip.mp3'];
-    game.footsteps = game.assets['/../assets/sfx/footsteps.wav'];
-    game.damn_son = game.assets['/../assets/sfx/DamnSon.wav'];
-    game.laser = game.assets['/../assets/sfx/laser_audio.wav'];
-    game.bass_cannon_wub = game.assets['/../assets/sfx/bass_cannon_audio.wav'];
-    game.coin_sfx = game.assets['/../assets/sfx/coin5.wav'];
-    game.zombie_die = game.assets['/../assets/sfx/zombie_die.wav'];
-    game.gameover = game.assets['/../assets/sfx/gameover_audio.wav'];
+    game.theme_song = game.assets['../assets/audio/bass_rush_wip.mp3'];
+    game.footsteps = game.assets['../assets/sfx/footsteps.wav'];
+    game.damn_son = game.assets['../assets/sfx/DamnSon.wav'];
+    game.laser = game.assets['../assets/sfx/laser_audio.wav'];
+    game.bass_cannon_wub = game.assets['../assets/sfx/bass_cannon_audio.wav'];
+    game.coin_sfx = game.assets['../assets/sfx/coin5.wav'];
+    game.zombie_die = game.assets['../assets/sfx/zombie_die.wav'];
+    game.gameover = game.assets['../assets/sfx/gameover_audio.wav'];
     // game.theme_song.play();
     game.footsteps.play();
     
