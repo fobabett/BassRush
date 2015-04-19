@@ -6,7 +6,7 @@
   var GAME_ASSET = {
     IMAGES: {
       logo: './assets/images/bassRushLogo.png',
-      bass_god: './assets/images/bass_god1.png',
+      bass_god: './assets/images/Bass_God1.png',
       bass_cannon: './assets/images/cannon_fire.png',
       cannon_powerup: './assets/images/power_up_fire.png',
       bass_coin: './assets/images/bass_coin.png',
