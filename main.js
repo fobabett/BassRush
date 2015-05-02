@@ -66,7 +66,7 @@
     game.rootScene.addChild(logo);
     logo.x = 150;
 
-    startLabel = new Label("Press ENTER to start");
+    startLabel = new Label("Press left arrow key to start");
       startLabel.color = "white";
       startLabel.font = "20px monospace";
       startLabel.x = 280;
