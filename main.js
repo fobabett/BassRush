@@ -68,7 +68,7 @@
 
     startLabel = new Label("Press left arrow key to start");
       startLabel.color = "white";
-      startLabel.font = "20px monospace";
+      startLabel.font = "16px monospace";
       startLabel.x = 280;
       startLabel.y = 300;
 
