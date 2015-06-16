@@ -127,7 +127,7 @@
     game.zombie_die = game.assets['./assets/sfx/zombie_die.wav'];
     game.gameover = game.assets['./assets/sfx/gameover_audio.wav'];
     // game.theme_song.play();
-    game.footsteps.play();
+    // game.footsteps.play();
     
 
     // backdrop = new Sprite(800,281);
@@ -238,7 +238,7 @@
         this.addEventListener('enterframe',function(){
           for(var i in enemies){
             if(enemies[i].intersect(this)){
-              game.zombie_die.play();
+              // game.zombie_die.play();
               enemies[i].remove();
               this.remove();
             }
@@ -278,7 +278,7 @@
 
           if(this.intersect(player)){
             game.coins++
-            game.coin_sfx.play();
+            // game.coin_sfx.play();
             this.remove();
           }
 
@@ -348,7 +348,7 @@
           if(this.intersect(player)){
             var bass_banner = new BassBanner(0,100);
             // bass_cannon.powerup = true;
-            game.damn_son.play();
+            // game.damn_son.play();
             console.log('damn son');
             this.remove();
             setTimeout(function() {
@@ -399,7 +399,7 @@
     game.rootScene.addEventListener('enterframe', function(){
       // Loop footsteps
       if (game.footsteps.currentTime >= game.footsteps.duration ){
-        game.footsteps.play();
+        // game.footsteps.play();
        }
       // generates enemies
       if(Math.random()*1000 < 10) {
@@ -433,7 +433,7 @@
       // // LASERSSSSSS ////////
       if(Math.random()*1000 < 10) {
         var green_lasers = new Lasers(0,50);
-        game.laser.play();
+        // game.laser.play();
 
         setInterval(function() {
           green_lasers.remove();
@@ -460,7 +460,7 @@
         bass_cannon.y = player.y+30;
         bass_cannon.x = player.x +150;
         bass_cannon.tl.moveBy(STAGE_WIDTH, 0, 50);
-        game.bass_cannon_wub.play();
+        // game.bass_cannon_wub.play();
         console.log('wub');
       }
 
@@ -534,7 +534,7 @@
     gameover.image = game.assets[GAME_ASSET.IMAGES.gameover];
     game.rootScene.addChild(gameover);
     // game.theme_song.stop();
-    game.footsteps.stop();
+    // game.footsteps.stop();
     game.gameover.play();
     game.stop();
     console.log('You dropped the bass m8. GAMEOVER');
