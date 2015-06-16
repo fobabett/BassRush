@@ -445,7 +445,7 @@
         red_lasers.x = -20;
         red_lasers.image = game.assets[GAME_ASSET.IMAGES.red_lasers];
         game.rootScene.addChild(red_lasers);
-        game.laser.play();
+        // game.laser.play();
 
         setInterval(function() {
           red_lasers.remove();
